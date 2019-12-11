@@ -1,0 +1,5 @@
+python .\train.py --dataroot .\datasets\ct2hdi\ --gpu_ids -1 --display_id 0 --preprocess scale_width_and_crop --load_size 1024 --crop_size 360 --no_html
+
+
+
+*** use --preprocess scale_width --load_size 1024 on test
