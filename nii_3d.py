@@ -9,7 +9,7 @@ import glob
 import argparse
 
 #%%
-def load_split_nii(filename,dst,dim):
+def load_split_nii(filename,dst,dim,threshold):
     scaler = MinMaxScaler(feature_range=(0,255))
     niiarray = np.array(nib.load(filename).get_data())
     nii_slices = range(niiarray.shape[dim])
@@ -38,8 +38,9 @@ def load_split_nii(filename,dst,dim):
 
         outpath = os.path.join(filepath,filename)
 
-        if not cv2.imwrite(outpath,img):
-            raise Exception("Could not write image")
+        if np.mean(img) > threshold:
+            if not cv2.imwrite(outpath,img):
+                raise Exception("Could not write image")
 
 
 
@@ -56,7 +57,7 @@ dim = int(args.dim)
 
 
 #Split all
-load_split_nii(nii,dump_folder,dim)
+load_split_nii(nii,dump_folder,dim,0)
 
 
 # %%

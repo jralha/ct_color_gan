@@ -1,0 +1,1 @@
+python .\train.py --dataroot .\datasets\libra-2anp2a-t1-cx1 --gpu_ids -1 --display_id 0 --no_html --name libra --direction AtoB
