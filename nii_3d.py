@@ -14,7 +14,7 @@ def load_split_nii(filename,dst,dim,threshold):
     niiarray = np.array(nib.load(filename).get_data())
     nii_slices = range(niiarray.shape[dim])
     
-    for i in tqdm(nii_slices):
+    for i in (nii_slices):
     
         if dim == 0:
             temparray = niiarray[i,:,:]
@@ -42,22 +42,21 @@ def load_split_nii(filename,dst,dim,threshold):
             if not cv2.imwrite(outpath,img):
                 raise Exception("Could not write image")
 
-
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--nii',required=True)
-parser.add_argument('--dst',required=True)
-parser.add_argument('--dim',required=True)
-args = parser.parse_args()
-
-nii = args.nii
-nii_f = nii.split('\\')[-1].split('.')[0]
-dump_folder = args.dst+'\\'+nii_f
-dim = int(args.dim)
-
-
 #Split all
-load_split_nii(nii,dump_folder,dim,0)
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--nii',required=True)
+    parser.add_argument('--dst',required=True)
+    parser.add_argument('--dim',required=True)
+    args = parser.parse_args()
+
+    nii = args.nii
+    nii_f = nii.split('\\')[-1].split('.')[0]
+    dump_folder = args.dst+'\\'+nii_f
+    dim = int(args.dim)
+
+    load_split_nii(nii,dump_folder,dim,0)
 
 
 # %%
