@@ -4,6 +4,7 @@ import glob
 from tqdm.auto import tqdm
 from nii_3d import load_split_nii
 import sys
+import cv2
 
 from options.test_options import TestOptions
 from data import create_dataset
@@ -83,7 +84,11 @@ if __name__ == '__main__':
 
 
         img_folder = '.\\results\\'+name+'\\ct_color\\test_latest\\images'
-        bgdir = '.\\results\\'+name+'\\ct_color\\bg_fix\\images'
+
+
+        bgdir = '.\\results\\'+name+'\\ct_color\\bg_fix'
+        if not os.path.exists(bgdir):
+            os.mkdir(bgdir)
 
         img_list = glob.glob(img_folder+'\\'+'*.png')
 
@@ -101,7 +106,7 @@ if __name__ == '__main__':
                 bg_fix = bg_bin*fake
 
                 outname = img.split('\\')[-1].split('_')[0]
-                out = out_folder+'\\'+outname+'.png'
+                out = bgdir+'\\'+outname+'.png'
 
                 cv2.imwrite(out,bg_fix)
             i=i+1
