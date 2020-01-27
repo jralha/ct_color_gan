@@ -25,7 +25,7 @@ if __name__ == '__main__':
         outfolder = 'temp_data\\'+name
         if not os.path.exists(outfolder):
             os.mkdir(outfolder)
-            load_split_nii(nii,outfolder,0,thresh)
+            load_split_nii(nii,outfolder,1,thresh)
         num = len(glob.glob(outfolder+'\\*.png'))
         num_files.append(num)
 
@@ -106,6 +106,16 @@ if __name__ == '__main__':
                 bg_fix = bg_bin*fake
 
                 outname = img.split('\\')[-1].split('_')[0]
+                chars = len(outname)
+
+                if chars == 1:
+                    outname = '000'+str(outname)
+                elif chars == 2:
+                    outname = '00'+str(outname)
+                elif chars == 3:
+                    outname = '0'+str(outname)
+
+
                 out = bgdir+'\\'+outname+'.png'
 
                 cv2.imwrite(out,bg_fix)
