@@ -34,34 +34,34 @@ rgbConverter.SetLookupTable(vtk.vtkScalarsToColors())
 
 opacity = vtk.vtkPiecewiseFunction()
 opacity.AddPoint(0, 0)
+opacity.AddPoint(250, 1)
 # opacity.AddPoint(100, 0.8)
-opacity.AddPoint(200, 1)
+# opacity.AddPoint(200, 1)
 
 
 volumeProperty = vtk.vtkVolumeProperty()
 volumeProperty.SetGradientOpacity(opacity)
 volumeProperty.SetInterpolationTypeToLinear()
 volumeProperty.SetIndependentComponents(0)
-volumeProperty.SetColor(colorFunc)
+# volumeProperty.ShadeOn()
 
 
-volumeMapper = vtk.vtkOpenGLGPUVolumeRayCastMapper() 
+# volumeMapper = vtk.vtkOpenGLGPUVolumeRayCastMapper() 
+volumeMapper = vtk.vtkFixedPointVolumeRayCastMapper()
+
 volumeMapper.SetInputConnection(reader.GetOutputPort())
-# volumeMapper.SetBlendModeToMaximumIntensity()
-# volumeMapper.SetBlendModeToAverageIntensity()
-# volumeMapper.SetBlendModeToMinimumIntensity()
-# volumeMapper.SetBlendModeToComposite()
-# volumeMapper.SetBlendModeToAdditive()
+volumeMapper.SetBlendModeToComposite()
 
 volume = vtk.vtkVolume()
 volume.SetMapper(volumeMapper)
 volume.SetProperty(volumeProperty)
 
 
+
 ren = vtk.vtkRenderer()
 ren.AddVolume(volume)
 #No need to set by default it is black
-ren.SetBackground(0.5, 0.5, 0.5)
+ren.SetBackground(0, 0, 0)
 
 renWin = vtk.vtkRenderWindow()
 renWin.AddRenderer(ren)
