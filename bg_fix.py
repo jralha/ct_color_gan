@@ -36,11 +36,14 @@ for img in tqdm(img_list):
         bg_bin = cv2.cvtColor(bg_bin,cv2.COLOR_GRAY2RGB)//255
 
         bg_fix = bg_bin*fake
+        alpha = bg_bin[:,:,0]*255
+
+        with_alpha = np.concatenate((bg_fix,alpha),axis=2)
 
         outname = img.split('\\')[-1].split('_')[0]
         out = out_folder+'\\'+outname+'.png'
 
-        cv2.imwrite(out,bg_fix)
+        cv2.imwrite(out,with_alpha)
     i=i+1
 
 # %%

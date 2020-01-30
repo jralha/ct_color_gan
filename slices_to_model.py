@@ -8,6 +8,7 @@ import vtk
 
 #%%
 folder = 'results\\Libra_CX1_T1_221_184_1485_Energy1\\ct_color\\bg_fix'
+# folder = 'C:\\Users\\Ralha\\Repos\\ct_color_gan\\temp_data\\Libra_CX1_T1_221_184_1485_Energy1'
 files = glob.glob(folder+'\\*.png')
 
 files.sort(key=lambda x: int(''.join(filter(str.isdigit, x))))
@@ -23,31 +24,20 @@ reader.SetDataSpacing(1,1,1)
 reader.Update()
 
 #%%
-colorFunc = vtk.vtkColorTransferFunction()
-colorFunc.SetColorSpaceToRGB()
-
-rgbConverter = vtk.vtkImageMapToColors()
-rgbConverter.SetOutputFormatToRGB()
-rgbConverter.SetLookupTable(vtk.vtkScalarsToColors())
-
-
-
-opacity = vtk.vtkPiecewiseFunction()
-opacity.AddPoint(0, 0)
-opacity.AddPoint(250, 1)
-# opacity.AddPoint(100, 0.8)
-# opacity.AddPoint(200, 1)
-
+volumeGradientOpacity = vtk.vtkPiecewiseFunction()
+volumeGradientOpacity.AddPoint(0,   0)
+volumeGradientOpacity.AddPoint(300, 1)
 
 volumeProperty = vtk.vtkVolumeProperty()
-volumeProperty.SetGradientOpacity(opacity)
-volumeProperty.SetInterpolationTypeToLinear()
-volumeProperty.SetIndependentComponents(0)
-# volumeProperty.ShadeOn()
+volumeProperty.SetGradientOpacity(volumeGradientOpacity)
+volumeProperty.IndependentComponentsOff()
+volumeProperty.SetInterpolationTypeToNearest()
 
+#To make color volumes in opengl images need to me in RGBA, not RGB
+#Opengl is a lot faster, should use it ideally.
+volumeMapper = vtk.vtkOpenGLGPUVolumeRayCastMapper() 
+# volumeMapper = vtk.vtkFixedPointVolumeRayCastMapper()
 
-# volumeMapper = vtk.vtkOpenGLGPUVolumeRayCastMapper() 
-volumeMapper = vtk.vtkFixedPointVolumeRayCastMapper()
 
 volumeMapper.SetInputConnection(reader.GetOutputPort())
 volumeMapper.SetBlendModeToComposite()
@@ -55,12 +45,9 @@ volumeMapper.SetBlendModeToComposite()
 volume = vtk.vtkVolume()
 volume.SetMapper(volumeMapper)
 volume.SetProperty(volumeProperty)
-
-
-
+ 
 ren = vtk.vtkRenderer()
 ren.AddVolume(volume)
-#No need to set by default it is black
 ren.SetBackground(0, 0, 0)
 
 renWin = vtk.vtkRenderWindow()
