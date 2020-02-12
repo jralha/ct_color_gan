@@ -29,21 +29,22 @@ for img in tqdm(img_list):
     if 'real' in img:
         real = cv2.imread(img)
         fake = cv2.imread(img_list[i-1])
+        fake = cv2.cvtColor(fake,cv2.COLOR_BGR2BGRA)
 
-        real_bw = cv2.cvtColor(real,cv2.COLOR_RGB2GRAY)
+        real_bw = cv2.cvtColor(real,cv2.COLOR_BGR2GRAY)
 
         bg_bin = cv2.threshold(real_bw,0,255,cv2.THRESH_BINARY)[1]
-        bg_bin = cv2.cvtColor(bg_bin,cv2.COLOR_GRAY2RGB)//255
+        bg_bin = cv2.cvtColor(bg_bin,cv2.COLOR_GRAY2BGRA)//255
 
         bg_fix = bg_bin*fake
         alpha = bg_bin[:,:,0]*255
 
-        with_alpha = np.concatenate((bg_fix,alpha),axis=2)
+        bg_fix[:,:,3]=alpha
 
         outname = img.split('\\')[-1].split('_')[0]
         out = out_folder+'\\'+outname+'.png'
 
-        cv2.imwrite(out,with_alpha)
+        cv2.imwrite(out,bg_fix)
     i=i+1
 
 # %%
