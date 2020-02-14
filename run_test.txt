@@ -1,1 +1,0 @@
- python .\test.py --dataroot .\datasets\ct2hdi\ --preprocess none --name ct_color

@@ -1,5 +1,5 @@
 ##train
-python .\train.py --dataroot .\datasets\libra-2anp2a-t1-cx1 --gpu_ids 1 --display_id 0 --no_html --name 2ANP2A-T1-CX1 --batch_size 2
+python .\train.py --dataroot .\datasets\libra-2anp2a-t1-cx1 --gpu_ids 1 --display_id 0 --no_html --name 2ANP2A-T1-CX1 --batch_size 3
 
 ##test
 python .\test.py --dataroot .\temp_data\Libra_CX1_T1_221_184_1485_Energy1 --gpu_ids -1 --name 2ANP2A-T1-CX1 --no_dropout --preprocess none --num_test 184
