@@ -7,11 +7,13 @@ import sys
 import vtk
 
 #%%
-folder = 'results\\Libra_CX1_T1_221_184_1485_Energy1\\ct_color\\bg_fix'
-# folder = 'C:\\Users\\Ralha\\Repos\\ct_color_gan\\temp_data\\Libra_CX1_T1_221_184_1485_Energy1'
+# folder = 'results\\ct_color\\test_latest\\bg_fix'
+folder = 'temp_data\\Libra_CX1_T1_221_184_1485_Energy1'
 files = glob.glob(folder+'\\*.png')
 
 files.sort(key=lambda x: int(''.join(filter(str.isdigit, x))))
+
+print(files)
 
 filePath = vtk.vtkStringArray()
 filePath.SetNumberOfValues(len(files))
@@ -35,8 +37,8 @@ volumeProperty.SetInterpolationTypeToNearest()
 
 #To make color volumes in opengl images need to me in RGBA, not RGB
 #Opengl is a lot faster, should use it ideally.
-volumeMapper = vtk.vtkOpenGLGPUVolumeRayCastMapper() 
-# volumeMapper = vtk.vtkFixedPointVolumeRayCastMapper()
+# volumeMapper = vtk.vtkOpenGLGPUVolumeRayCastMapper() 
+volumeMapper = vtk.vtkFixedPointVolumeRayCastMapper()
 
 
 volumeMapper.SetInputConnection(reader.GetOutputPort())

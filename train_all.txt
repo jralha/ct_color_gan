@@ -2,7 +2,7 @@
 python .\train.py --dataroot .\datasets\ct2hdi\ --gpu_ids 1 --display_id 0 --no_html --name ct2hdi --batch_size 3
 
 ##test
-python .\test.py --dataroot .\datasets\ct2hdi\ --gpu_ids 1 --name ct2hdi --no_dropout --preprocess none --num_test X
+python .\test.py --dataroot .\temp_data\Libra_CX1_T1_221_184_1485_Energy1 --gpu_ids -1 --name ct2hdi --no_dropout --preprocess none --num_test 184
 
 ##bg_fix
 python .\bg_fix.py --name ct2hdi --run test_latest
