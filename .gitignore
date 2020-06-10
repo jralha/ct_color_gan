@@ -1,5 +1,6 @@
 .DS_Store
 debug*
+aws/
 datasets/
 checkpoints/
 results/
