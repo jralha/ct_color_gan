@@ -1,0 +1,8 @@
+##train
+python .\train.py --dataroot .\datasets\2anp2a --gpu_ids 1 --display_id 0 --no_html --name 2ANP2A --batch_size 3
+
+##test
+python .\test.py --dataroot .\datasets\ct_data\Libra_CX1_T1_221_184_1485_Energy1 --gpu_ids 1 --name 2ANP2A --no_dropout --preprocess none --num_test 184
+
+##bg_fix
+python .\bg_fix.py --imgdir .\results\2ANP2A\test_latest\images

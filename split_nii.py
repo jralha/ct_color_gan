@@ -39,7 +39,8 @@ def load_split_nii(filename,dst,dim,threshold):
         outpath = os.path.join(filepath,filename)
 
         if np.mean(img) > threshold:
-            if not cv2.imwrite(outpath,img):
+            outimg = cv2.imwrite(outpath,img)
+            if outimg == False:
                 raise Exception("Could not write image")
 
 #Split all

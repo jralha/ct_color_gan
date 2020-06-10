@@ -17,7 +17,7 @@ import numpy as np
 import nibabel as nib
 
 #%%
-nii = np.expand_dims(np.expand_dims(np.uint8(np.array(nib.load('ct_color_gan\\nii_data\\Libra_CX1_T1_221_184_1485_Energy1.nii' ).get_data())),axis=0),axis=0)[:,:,:-1,:,:-1]
+nii = np.expand_dims(np.expand_dims(np.uint8(np.array(nib.load('datasets\\nii_data_libra\\Libra_CX1_T1_221_184_1485_Energy1.nii' ).get_data())),axis=0),axis=0)[:,:,:-1,:,:-1]
 nii = torch.tensor(nii)
 
 checkpoint = 'ct_color_gan\\checkpoints\\ct_color\\latest_net_G.pth'

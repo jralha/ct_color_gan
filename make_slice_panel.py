@@ -8,14 +8,12 @@ plt.style.use('dark_background')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--niifile',required=True)
-# parser.add_argument('--method',required=True)
 parser.add_argument('--dim',required=True)
 parser.add_argument('--slices',required=True)
 parser.add_argument('--c_map',default='gray')
 args = parser.parse_args()
 
 filename = args.niifile
-# method = args.method
 dim = args.dim
 slcs = args.slices.split(',')
 c_map = args.c_map
