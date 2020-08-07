@@ -48,7 +48,7 @@ def load_split_nii(filename,dst,dim,threshold,outname=None):
 #Split all
 if __name__ == '__main__':
 
-    nii_list = glob.glob('nii_data_libra\\*Energy2.nii')
+    nii_list = glob.glob('datasets\\nii_data_libra\\*Energy2.nii')
 
     THRESHOLD = 100
     for nii in tqdm(nii_list):
