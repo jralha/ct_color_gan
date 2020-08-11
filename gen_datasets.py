@@ -7,7 +7,7 @@ import os
 from tqdm.auto import tqdm
 
 #%%
-def window_image(image,outfolder,window_size=220,vstep=100,hstep=100,split=None,split_folder=None):
+def window_image(image,outfolder,window_size=220,vstep=220,hstep=220,split=None,split_folder=None,thresh=0):
     if not os.path.exists(outfolder):
         os.mkdir(outfolder)
     img = cv2.imread(image)
@@ -35,9 +35,10 @@ def window_image(image,outfolder,window_size=220,vstep=100,hstep=100,split=None,
                 else:
                     outpath = os.path.join(split_folder,name)
                     n=0
-                outimg = cv2.imwrite(outpath,slc)
-                if outimg == False:
-                    raise Exception("Could not write image")
+                if np.mean(slc) > thresh:
+                    outimg = cv2.imwrite(outpath,slc)
+                    if outimg == False:
+                        raise Exception("Could not write image")
             n=n+1
             cx = cx+hstep
         cy = cy+vstep
@@ -51,10 +52,10 @@ outB = ('datasets\\libra\\trainB\\foto','datasets\\libra\\testB\\foto')
 
 #%%
 for img in tqdm(tempA):
-    window_image(img,outA[0],split=0.2,split_folder=outA[1])
+    window_image(img,outA[0],split=0.2,split_folder=outA[1],thresh=10)
 
 # %%
 for img in tqdm(tempB):
-    window_image(img,outB[0],split=0.2,split_folder=outB[1],window_size=500,vstep=250,hstep=250)
+    window_image(img,outB[0],split=0.2,split_folder=outB[1],window_size=1000,vstep=800,hstep=800,thresh=100)
 
 # %%

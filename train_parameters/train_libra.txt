@@ -1,0 +1,9 @@
+##train
+python .\train.py --dataroot .\datasets\libra\ --gpu_ids 0,1 --display_id 0 --no_html --name libra--batch_size 100
+
+##test
+python .\test.py --dataroot .\datasets\ct_data\Libra_CX1_T1_221_184_1485_Energy1 --gpu_ids -1 --name libra --no_dropout --preprocess none --num_test 184
+
+##bg_fix
+python .\bg_fix.py --imgdir .\results\ct2hdi\test_latest\images
+
