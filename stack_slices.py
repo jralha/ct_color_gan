@@ -35,6 +35,7 @@ volumeProperty.SetInterpolationTypeToNearest()
 
 #To make color volumes in opengl images need to me in RGBA, not RGB
 #Opengl is a lot faster, should use it ideally.
+#Use OpenGL for color images, fixed point for grayscale
 # volumeMapper = vtk.vtkOpenGLGPUVolumeRayCastMapper() 
 volumeMapper = vtk.vtkFixedPointVolumeRayCastMapper()
 
